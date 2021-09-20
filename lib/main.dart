@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
@@ -37,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final Codec _codec = Codec.aacMP4;
   FlutterSoundRecorder _mRecorder = FlutterSoundRecorder();
   FlutterSoundPlayer _myPlayer = FlutterSoundPlayer();
-  String _mPath = 'tau_file.mp4';
+  String _mPath = 'audio.mp4';
   bool _mPlayerIsInited = false;
 
   @override
@@ -45,6 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       this.checkEnvironment(_codec);
       Future(() async {
+        // file inside /data/user/0/com.example.flutter_sound_app in android
+        final directory = await getApplicationDocumentsDirectory();
+        _mPath = "${directory.path}/audio.mp4";
         await _myPlayer.openAudioSession();
       });
       _mPlayerIsInited = true;
@@ -75,7 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(onPressed: executeRecording(_mRecorder), child: Text(_mRecorder.isRecording ? 'stop recording' : 'start recording')),
-            ElevatedButton(onPressed: executePlay(_myPlayer), child: Text(_myPlayer.isPlaying ? 'stop playing audio' : 'start play audio'),)
+            ElevatedButton(onPressed: executePlay(_myPlayer), child: Text(_myPlayer.isPlaying ? 'stop playing audio' : 'start play audio'),),
+            ElevatedButton(onPressed: executeArchieve, child: Text('archieve zip'),)
           ],
         ),
       ),
@@ -156,5 +161,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   stopAudio(FlutterSoundPlayer player) async {
     _myPlayer.stopPlayer();
+  }
+
+  executeArchieve () {
+    try {
+      Future(() async {
+        final directory = await getApplicationDocumentsDirectory();
+        final zipFile = File("${directory.path}/audio.zip");
+        ZipFile.createFromFiles(sourceDir: directory, files: [
+          File("${directory.path}/audio.mp4")
+        ], zipFile: zipFile);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 }

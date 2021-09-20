@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_sound: ^8.3.12
   permission_handler: ^8.1.6
+  flutter_archive: ^4.0.1
 
 dev_dependencies:
   flutter_test:

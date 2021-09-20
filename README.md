@@ -1,26 +1,29 @@
 # flutter_sound_app
 
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+A new example Audio Flutter Example application.
 
 ### spec
 
-- [ ] enable to record audio
+- [x] enable to record audio, ios/android
+- [ ] enable to convert mp3 to zip
 
 ### memo
 
 - need to upgrade ios minimum deployment version 9.0 to 11.0
-- need to upgrade android minSdkVersion version 16 to 24
-- add NSMicrophoneUsageDescription to info plist
+- need to upgrade android minSdkVersion version 16 to 24(Android 7)
+- need to add NSMicrophoneUsageDescription to info plist
+- need to add permission to AndroidManifest.xml
+- need to add permission_handler package
+
+#### you can access file directory in your android device via adb
+
+```
+127|sargo:/ $ run-as com.example.flutter_sound_app
+sargo:/data/user/0/com.example.flutter_sound_app $ ls
+app_flutter  cache  code_cache  files
+s cache/                                                                      <
+tau_file.mp4
+
+sargo:/data/user/0/com.example.flutter_sound_app $ ls app_flutter
+audio.mp4  flutter_assets  res_timestamp-1-1632130161889
+```
