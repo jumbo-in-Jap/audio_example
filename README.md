@@ -5,7 +5,7 @@ A new example Audio Flutter Example application.
 ### spec
 
 - [x] enable to record audio, ios/android
-- [ ] enable to convert mp3 to zip
+- [x] enable to convert mp3 to zip
 
 ### memo
 
